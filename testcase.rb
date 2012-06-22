@@ -35,7 +35,9 @@ class Testcase
       if method == 'GET'
         runtestget(fullpath)
       elsif method == 'POST'
-        runtestpost(fullpath)
+        runtestpost(fullpath, false)
+      elsif method == 'PUT'
+        runtestpost(fullpath, true)
       end
     rescue Exception => e
       puts e.message
@@ -131,7 +133,7 @@ class Testcase
     end
   end
 
-  def runtestpost(fullpath)
+  def runtestpost(fullpath, useput)
     begin
 
       if @verbose
@@ -149,7 +151,11 @@ class Testcase
       end
 
       # Creating the request
-      request = Net::HTTP::Post.new(uri.path)
+      if useput
+        request = Net::HTTP::Put.new(uri.path)
+      else
+        request = Net::HTTP::Post.new(uri.path)
+      end
       addheaders(request)
       request.body = data
 

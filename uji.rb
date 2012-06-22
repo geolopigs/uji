@@ -18,8 +18,8 @@ optparse = OptionParser.new do|opts|
   end
 
   options[:config] = false
-  opts.on( '-c', '--config', 'Use named config file. Default is uji.cfg.' ) do
-    options[:config] = true
+  opts.on( '-c', '--config FILE', 'Use named config file. Default is uji.cfg.' ) do|config|
+    options[:config] = config
   end
 
   options[:logfile] = nil
@@ -42,7 +42,7 @@ end
 # the options. What's left is the list of files to resize.
 optparse.parse!
 
-filename = options[:logfile]
+filename = options[:config]
 unless filename
   filename = "uji.cfg"
 end
