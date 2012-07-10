@@ -50,7 +50,7 @@ class Testcase
       expected_status = @paramhash['status']
       raise ArgumentError.new("No expected response status for this test specified") unless expected_status
 
-      result = (res.code <=> expected_status.to_s)
+      result = res.code.eql?(expected_status.to_s)
 
       if @verbose
         output = "Checking for status #{expected_status} - "
